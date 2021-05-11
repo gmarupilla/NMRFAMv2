@@ -1,0 +1,15 @@
+Parameters,values
+Standard,DSS
+Frequency,600
+Tissue,Blood
+Species,test
+pH,7.5
+Volume,10
+
+Group,A
+Directory,1,2,3,4
+
+Group,B
+Directory,5,6
+
+Priors,1,5,4

@@ -1,0 +1,19 @@
+Bootstrap: docker
+From: python:3.7
+
+%files
+    NMRFAMv2 /
+
+%post
+    pip install numpy
+    pip install pandas
+    pip install nmrglue
+    pip install flask
+    pip install matplotlib
+    pip install scipy
+    pip install pystan
+
+
+%runscript
+    cd NMRFAMv2/
+    python main.py
