@@ -1,13 +1,16 @@
-from StanPreProcessingFunctions import *
-
 import random
 
+from .stan_pre_processing_functions import (
+    get_names, get_metabolite_dot_products,
+    get_area_factors, get_mixture_dot_products
+)
 
-def stanDataPreparation(mixture, metabolites):
+
+def stan_data_preparation(mixture, metabolites):
     pass
 
 
-def getZeros(metabolite_count):
+def get_zeros(metabolite_count):
     zeros = []
     for i in range(0, metabolite_count):
         x = random.uniform(0, 0.00000001)
@@ -15,27 +18,27 @@ def getZeros(metabolite_count):
     return zeros
 
 
-def getSigmas(metabolite_count):
+def get_sigmas(metabolite_count):
     return [0.1] * metabolite_count
 
 
-def getScalesSigma(scales_mean):
+def get_scales_sigma(scales_mean):
     return [x / 2 for x in scales_mean]
 
 
-def stanPreProcess(mixture, metabolites, stan_parameters, initial_estimates):
-    names = getNames(metabolites)
-    area_factors = getAreaFactors(metabolites)
+def stan_pre_process(mixture, metabolites, stan_parameters, initial_estimates):
+    names = get_names(metabolites)
+    area_factors = get_area_factors(metabolites)
     # initial_estimates = [10] * len(metabolites)
     is_it_final = 0
     num_time_points = stan_parameters["num_time_points"]
-    metaboliteDotProducts = getMetaboliteDotProducts(metabolites)
-    mixtureDotProducts = getMixtureDotProducts(mixture, metabolites)
+    metaboliteDotProducts = get_metabolite_dot_products(metabolites)
+    mixtureDotProducts = get_mixture_dot_products(mixture, metabolites)
 
-    zeros = getZeros(len(names))
-    sigmas = getSigmas(len(names))
+    zeros = get_zeros(len(names))
+    sigmas = get_sigmas(len(names))
 
-    scales_sigma = getScalesSigma(sigmas)
+    scales_sigma = get_scales_sigma(sigmas)
     print("Metabolite Dot Products: ")
     print(metaboliteDotProducts)
     print("Mixture Dot Products:")

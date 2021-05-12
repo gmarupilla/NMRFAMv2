@@ -1,10 +1,10 @@
-from Spectrum import Spectrum
-from Metabolite import Metabolite
+from .spectrum import Spectrum
+from .metabolite import Metabolite
 
 import sys
 
 
-def checkParameters(mixture, metabolite_list):
+def check_parameters(mixture, metabolite_list):
     if not isinstance(mixture, Spectrum):
         print("Error")
         sys.exit()
@@ -19,7 +19,7 @@ def checkParameters(mixture, metabolite_list):
         sys.exit()
 
 
-def resizeMetabolites(mixture, metabolite_list):
+def resize_metabolites(mixture, metabolite_list):
     for i in range(len(metabolite_list)):
         metabolite_list[i].resize(mixture.ppms[0], mixture.ppms[len(mixture.ppms) - 1], len(mixture.ppms))
 
@@ -35,14 +35,14 @@ def auto_shift_metabolites(mixture, metabolite_list):
     # TODO: Must record shift amount
 
 
-def saveMetbolites(metabolite_list):
+def save_metbolites(metabolite_list):
     for i in range(len(metabolite_list)):
         metabolite_list[i].save("resizedMetabolites/")
 
 
-def preProcess(mixture, metabolite_list):
+def pre_process(mixture, metabolite_list):
     # Perform data checks
-    checkParameters(mixture, metabolite_list)
+    check_parameters(mixture, metabolite_list)
 
     print("starting peak conversions")
     # For each metabolite in metabolite_list, we need to convert peak_ppms to peak_inds
@@ -51,7 +51,7 @@ def preProcess(mixture, metabolite_list):
 
     print("starting resize")
     # Resize metabolites to the size of the mixture
-    resizeMetabolites(mixture, metabolite_list)
+    resize_metabolites(mixture, metabolite_list)
 
     print("starting normalize")
     # Normalize metaboilite data

@@ -39,7 +39,6 @@ class Metadata:
             self.valid = False
             return
 
-
         # Line 1
         line = 1
         key = "Standard"
@@ -70,7 +69,6 @@ class Metadata:
             print("[Metadatareader] line {linenumber}: {error}".format(linenumber=line, error=error))
             self.valid = False
             return
-
 
         if not self.parsed_data[line][1].isnumeric():
             error = error_dict["ValueIsNotNumber"]
@@ -142,7 +140,6 @@ class Metadata:
             return
 
         self.volume = float(self.parsed_data[line][1])
-
 
     def isComplete(self):
         pass

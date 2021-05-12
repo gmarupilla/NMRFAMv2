@@ -2,30 +2,25 @@ import time
 import sys
 import os
 
-from ReadUserData import readMetadata
-from ReadUserData import readMixture
-from ReadUserData import readMetaboliteList
-from PreProcessing import preProcess
-from PreEstimate import preEstimate
-from PreEstimate import getPreEstimates
-from PreEstimate import logPreEstimate
+from .read_user_data import read_metadata, read_mixture, read_metabolite_list
+from .pre_processing import pre_process
+from .pre_estimate import pre_estimate, get_pre_estimates, log_pre_estimate
 
-from StanPreProcessing import stanPreProcess
+from .stan_pre_processing import stan_pre_process
 
-from StanEstimation import getStanModel
-from StanEstimation import stanEstimation
-from SaveEstimates import saveEstimates
+from .stan_estimation import get_stan_model, stan_estimation
+from .save_estimates import save_estimates
 
-from RunLog import RunLog
-from RunResultsWriter import RunResultsWriter
+from .run_log import RunLog
+from .run_results_writer import RunResultsWriter
 
 
-def main(mixture_path, runLog, resultsWriter):
+def main(main_mixture_path, runLog, resultsWriter):
     # READ
     init_time = float(time.time())
-    # metadata = readMetadata() #
-    mixture = readMixture(mixture_path)  # Mixture will be a Spectrum object
-    metabolite_list = readMetaboliteList()  # Metabolite list will be an array of Metabolite Objects
+    # metadata = read_metadata() #
+    mixture = read_mixture(mixture_path)  # Mixture will be a Spectrum object
+    metabolite_list = read_metabolite_list()  # Metabolite list will be an array of Metabolite Objects
     end_time = float(time.time())
     mixture.center_dss_at_zero()
     # Log
@@ -41,7 +36,7 @@ def main(mixture_path, runLog, resultsWriter):
     Nothing is returned, the data is changed in-line
     """
     init_time = float(time.time())
-    preProcess(mixture, metabolite_list)
+    pre_process(mixture, metabolite_list)
     end_time = float(time.time())
 
     runLog.log_mixture(mixture, "resized")
@@ -52,11 +47,11 @@ def main(mixture_path, runLog, resultsWriter):
 
     # PREESTIMATE
     init_time = float(time.time())
-    preEstimate(mixture, metabolite_list)
-    pre_estimates = getPreEstimates(mixture, metabolite_list)
+    pre_estimate(mixture, metabolite_list)
+    pre_estimates = get_pre_estimates(mixture, metabolite_list)
     # pre_estimates = [30] * len(metabolite_list)
     end_time = float(time.time())
-    # logPreEstimate(mixture, metabolite_list)
+    # log_pre_estimate(mixture, metabolite_list)
     # print("pre estimates:")
     # print(pre_estimates)
     runLog.log_fitted_all_metabs(metabolite_list, mixture, pre_estimates, "/preestimates")
@@ -67,7 +62,7 @@ def main(mixture_path, runLog, resultsWriter):
     # STAN PREPRECESSING
     init_time = float(time.time())
     stan_parameters = parameters["stan"]
-    stan_pre_process_dict = stanPreProcess(mixture, metabolite_list, stan_parameters, pre_estimates)
+    stan_pre_process_dict = stan_pre_process(mixture, metabolite_list, stan_parameters, pre_estimates)
     end_time = float(time.time())
     print("StanPreprocessing time: " + str(end_time - init_time))
     ########################
@@ -75,7 +70,7 @@ def main(mixture_path, runLog, resultsWriter):
     # STAN ESTIMATION
     init_time = int(time.time())
     # checkDataCompatibleWithStan() # TODO: Ensure that none of the means are zero
-    stan_estimates = stanEstimation(mixture, metabolite_list, stan_pre_process_dict, stan_parameters, runLog)
+    stan_estimates = stan_estimation(mixture, metabolite_list, stan_pre_process_dict, stan_parameters, runLog)
     end_time = int(time.time())
     print("Stan Estimation time: " + str(end_time - init_time))
     ########################
@@ -84,7 +79,7 @@ def main(mixture_path, runLog, resultsWriter):
 
     # print(stan_estimates)
     # init_time = int(time.time())
-    # saveEstimates(stan_estimates)
+    # save_estimates(stan_estimates)
     # end_time = int(time.time())
     # print("Data save time: " + str(end_time - init_time))
     ########################

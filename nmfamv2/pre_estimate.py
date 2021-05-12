@@ -29,7 +29,7 @@ def single_metabolite_seeding_max(metabolite_peak_inds, metabolite_values, mixtu
     for ind in metabolite_peak_inds:
         if metabolite_values[ind] == 0:
             print(
-                "ERROR: [PreEstimate.py][find_metabolite_seeding_max] A supposed peak ind points to a zero value. Check logic of preprocessing and the validity of peak locations for this metabolite.")
+                "ERROR: [pre_estimate.py][find_metabolite_seeding_max] A supposed peak ind points to a zero value. Check logic of preprocessing and the validity of peak locations for this metabolite.")
             sys.exit()
         if metabolite_values[ind] > highest_value * .2:
             scales.append(mixture_values[ind] / metabolite_values[ind])
@@ -49,7 +49,7 @@ def find_seeding_maxes(metabolite_list, mixture):
 ###  MINS  ###
 
 
-def getOnlyPeaks(allPeakInds, window):
+def get_only_peaks(allPeakInds, window):
     if len(allPeakInds) <= 1:
         return allPeakInds
     # List is at least of length 2
@@ -109,7 +109,7 @@ def peakPreparation(peakIndsList):
 """
 
 
-def extractPeakIndsList(metabolite_list):  # Returns a list of lists with peak_inds
+def extract_peak_inds_list(metabolite_list):  # Returns a list of lists with peak_inds
     allPeakIndsList = []
     for metabolite in metabolite_list:
         allPeakIndsList.append(metabolite.peak_inds)
@@ -156,7 +156,7 @@ def find_seeding_mins(metabolite_list, mixture, window=15):
             metabolite.min_scale = min_scale
 
 
-def getOverlappingMetabolites(metabolite_list):
+def get_over_lapping_metabolites(metabolite_list):
     overlapping_dict = {}
 
     for i in range(len(metabolite_list)):
@@ -177,20 +177,20 @@ def getOverlappingMetabolites(metabolite_list):
     return overlapping_dict
 
 
-def preEstimate(mixture, metabolite_list):
+def pre_estimate(mixture, metabolite_list):
     # First we want to get the minimum seedings for 
     find_seeding_mins(metabolite_list, mixture)
 
     find_seeding_maxes(metabolite_list, mixture)
 
 
-def logPreEstimate(mixture, metabolite_list):
+def log_pre_estimate(mixture, metabolite_list):
     pass
 
 
-def getPreEstimates(mixture, metabolite_list):
+def get_pre_estimates(mixture, metabolite_list):
     if len(metabolite_list) == 0:
-        print("[PreEstimate.py] No metabolites")
+        print("[pre_estimate.py] No metabolites")
         sys.exit()
     if len(metabolite_list) == 1: return [metabolite_list[0].max_scale]
 

@@ -1,10 +1,10 @@
-from ReadMixture import getMixtureDataFrom1rFiles
-from ReadMixture import readMixtureFromCSV
+from .read_mixture import get_mixture_data_from_1r_files
+from .read_mixture import read_mixture_from_csv
 
 import matplotlib.pyplot as plt
 
-mixture_ppm_axis, mixture_values = getMixtureDataFrom1rFiles("1r_files/3/pdata/3")
-csv_ppms, csv_mix = readMixtureFromCSV()
+mixture_ppm_axis, mixture_values = get_mixture_data_from_1r_files("1r_files/3/pdata/3")
+csv_ppms, csv_mix = read_mixture_from_csv()
 # print(mixture_values)
 # print(csv_mix)
 

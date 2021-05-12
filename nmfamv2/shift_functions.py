@@ -31,7 +31,7 @@ def shift_values_one(values, direction):
     return values
 
 
-def getShiftScore(metaboltie_values, metabolite_peak_indexes, mixture_values):
+def get_shift_score(metaboltie_values, metabolite_peak_indexes, mixture_values):
     shift_score = 0
     for peak_ind in metabolite_peak_indexes:
         shift_score = shift_score + (metaboltie_values[peak_ind] * mixture_values[peak_ind])
@@ -39,7 +39,7 @@ def getShiftScore(metaboltie_values, metabolite_peak_indexes, mixture_values):
 
 
 def check_metabolite_shift(metabolite_values, metabolite_peak_indexes, mixture_values, shift_steps=400):
-    max_score = getShiftScore(metabolite_values, metabolite_peak_indexes, mixture_values)
+    max_score = get_shift_score(metabolite_values, metabolite_peak_indexes, mixture_values)
     best_shift_index = 0
     best_shift_direction = "right"
 
@@ -51,7 +51,7 @@ def check_metabolite_shift(metabolite_values, metabolite_peak_indexes, mixture_v
             shift_peaks_one(copy_metabolite_peak_indexes, direction)
             shift_values_one(copy_metabolite_values, direction)
 
-            shift_score = getShiftScore(copy_metabolite_values, copy_metabolite_peak_indexes, mixture_values)
+            shift_score = get_shift_score(copy_metabolite_values, copy_metabolite_peak_indexes, mixture_values)
 
             if max_score < shift_score:
                 max_score = shift_score

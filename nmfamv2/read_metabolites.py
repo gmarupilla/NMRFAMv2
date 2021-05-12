@@ -1,6 +1,6 @@
 import pandas as pd
 
-from DataConversion import listFromListString
+from .data_conversion import list_from_list_string
 
 import xml.etree.ElementTree as ET
 import os
@@ -11,7 +11,7 @@ import sys
 #    names, metabolite_ppms, metabolite_values, metabolite_peak_ppms
 
 
-def readMetabolitesFromCSV(path_to_ppms="sample_data/metabolite_ppms.csv",
+def read_metabolites_from_csv(path_to_ppms="sample_data/metabolite_ppms.csv",
                            path_to_values="sample_data/metabolite_values.csv",
                            path_to_peaks="sample_data/metabolite_peaks.csv"):
     metabolite_ppms_df = pd.read_csv(path_to_ppms)
@@ -95,7 +95,7 @@ def readMetabolitesFromCSV(path_to_ppms="sample_data/metabolite_ppms.csv",
 
     peak_values = list(metabolite_peak_ppms_df["values"])
     for i in range(len(peak_values)):
-        peak_ppms_list.append(listFromListString(peak_values[i], float))
+        peak_ppms_list.append(list_from_list_string(peak_values[i], float))
 
     return names, ppms_list, values_list, peak_ppms_list
 
@@ -131,6 +131,7 @@ def grab_gizzmo_metabolites(path_to_directory, metabolite_names):
     counter = 0
 
     read_names = []
+    # TODO: directory?
     for bmse_dir in os.listdir(directory):
         if "bmse" in bmse_dir:
             for sim_dir in os.listdir(directory + "/" + bmse_dir):
@@ -171,4 +172,4 @@ def grab_gizzmo_metabolites(path_to_directory, metabolite_names):
     return metab_names, metab_ppms, metab_vals, metab_peak_ppms  # ,metab_peak_inds
 
 
-readMetabolitesFromCSV()
+read_metabolites_from_csv()

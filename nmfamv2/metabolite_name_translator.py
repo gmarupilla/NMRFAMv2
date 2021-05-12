@@ -1,3 +1,5 @@
+import sys
+
 bmseTranslator = {
     "(+-)-Acetylcarnitine": "bmse000142",
     "Benzoate": "bmse000300",
@@ -11,7 +13,6 @@ bmseTranslator = {
 }
 
 synonymTranslator = {
-
     "(+-)-acetylcarnitine": "(+-)-Acetylcarnitine",
     "dl-o-acetylcarnitine": "(+-)-Acetylcarnitine",
     "ammonium": "(+-)-Acetylcarnitine",
@@ -22,7 +23,6 @@ synonymTranslator = {
     "acetyl-dl-carnitine": "(+-)-Acetylcarnitine",
     "1-propanaminium": "(+-)-Acetylcarnitine",
     "2-(acetoxy)-3-carboxy-n": "(+-)-Acetylcarnitine",
-
     "benzoate": "Benzoate",
     "kyselina benzoova": "Benzoate",
     "benzenemethanoic acid": "Benzoate",
@@ -31,8 +31,6 @@ synonymTranslator = {
     "benzoic acid": "Benzoate",
     "acide benzoique": "Benzoate",
     "retarder": "Benzoate",
-    "benzoesaeure": "Benzoate",
-
     "citrate": "Citrate",
     "2-hydroxytricarballylic acid": "Citrate",
     "3-carboxy-3-hydroxypentane-1": "Citrate",
@@ -40,13 +38,11 @@ synonymTranslator = {
     "1,2,3-propanetricarboxylic acid": "Citrate",
     "k-lyte": "Citrate",
     "anhydrous citric acid": "Citrate",
-
     "dss": "DSS",
     "sodium 3-(trimethylsilyl)-1-propanesulfonate": "DSS",
     "3-(trimethylsilyl)-1-propanesulfonic acid sodium salt": "DSS",
     "2,2-dimethyl-2-silapentane-5-sulfonate sodium salt": "DSS",
     "dss sodium salt": "DSS",
-
     "ethanol": "Ethanol",
     "etoh": "Ethanol",
     "sd alchol 23-hydrogen": "Ethanol",
@@ -56,11 +52,10 @@ synonymTranslator = {
     "ethyl alcohol and water": "Ethanol",
     "molasses alcohol": "Ethanol",
     "dehydrated ethanol": "Ethanol",
-
 }
 
 
-def checkDictionaryFormats():
+def check_dictionary_formats():
     synKeys = synonymTranslator.keys()
     for i in range(len(synKeys)):
         for j in synKeys[i]:
@@ -75,7 +70,7 @@ def checkDictionaryFormats():
             sys.exit()
 
 
-def translateToGizzmoName(synonymName):
+def translate_to_gizzmo_name(synonymName):
     # checkDictionaryFormats()
 
     lowerSynonymName = synonymName.lower()
@@ -83,7 +78,7 @@ def translateToGizzmoName(synonymName):
     return synonymTranslator[lowerSynonymName]
 
 
-def translateListToGizzmoNames(synonymNameList):
+def translate_list_to_gizzmo_names(synonymNameList):
     # checkDictionaryFormats()
     gizzmoNames = []
     for synonymName in synonymNameList:
@@ -94,11 +89,11 @@ def translateListToGizzmoNames(synonymNameList):
     return gizzmoNames
 
 
-def translateToBMSE(synonymName):
-    checkDictionaryFormats()
+def translate_to_bmse(synonymName):
+    check_dictionary_formats()
 
-    gizzmoName = translateToGizzmoName(synonymName)
-    if (gizzmoName == None):
+    gizzmo_name = translate_to_gizzmo_name(synonymName)
+    if gizzmo_name is None:
         return None
 
-    return bmseTranslator[gizzmoName]
+    return bmseTranslator[gizzmo_name]

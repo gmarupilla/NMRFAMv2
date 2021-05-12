@@ -1,20 +1,16 @@
-from flask import Flask
-from flask import request
-from flask import jsonify
+from flask import Flask, jsonify, render_template, request
 
-from MetaboliteNameTranslator import translateListToGizzmoNames
-
-from flask import render_template
+from metabolite_name_translator import translate_list_to_gizzmo_names
 
 app = Flask(__name__)
 
 
 @app.route("/translatenames", methods=["POST"])
-def translatenames():
+def translate_names():
     if request.is_json:
         # print(request.get_json())
 
-        namelist = translateListToGizzmoNames(request.get_json()["metabolitenames"])
+        namelist = translate_list_to_gizzmo_names(request.get_json()["metabolitenames"])
         json_ = {
             "metabolitenames": namelist
         }
@@ -28,17 +24,17 @@ def estimate():
 
 
 @app.route("/lookupmetabolitename", methods=["GET"])
-def lookupmetabolitename():
+def lookup_metabolite_name():
     return render_template("wasYourMetabolite.html", data="metab")
 
 
 @app.route("/choice", methods=["GET"])
 def choice():
-    choice = request.args.get("choice")
-    print("Choice: ", choice)
-    if choice == "Algorithm":
+    choice_req = request.args.get("choice")
+    print("Choice: ", choice_req)
+    if choice_req == "Algorithm":
         return render_template("algorithm_page.html")
-    elif choice == "Metabolite Lookup":
+    elif choice_req == "Metabolite Lookup":
         return render_template("metabolite_lookup.html")
     else:
         return render_template("error.html")

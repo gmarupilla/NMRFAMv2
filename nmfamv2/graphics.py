@@ -3,8 +3,8 @@
 import os
 import sys
 import matplotlib.pyplot as plt
-from Metabolite import Metabolite
-from Spectrum import Spectrum
+from .metabolite import Metabolite
+from .spectrum import Spectrum
 
 
 # In the graphic object, we'd like to have:
@@ -15,7 +15,7 @@ class MixtureGraphic:
     def __init__(self, mixture):
         self.mixture = mixture
 
-    def writeMixture(self, full_path, name="mixture"):
+    def write_mixture(self, full_path, name="mixture"):
         plt.plot(self.mixture.ppms, self.mixture.values)
         plt.title(name)
         plt.savefig(os.path.join(full_path, name), dpi=800)
@@ -25,7 +25,7 @@ class MetaboliteGraphic:
     def __init__(self, metabolite_list):
         self.metabolite_list = metabolite_list
 
-    def writeMetabolites(self, full_path, name_modifier=""):
+    def write_metabolites(self, full_path, name_modifier=""):
         for metab in self.metabolite_list:
             if not os.path.isdir(os.path.join(full_path, metab.name)):
                 os.mkdir(os.path.join(full_path, metab.name))
@@ -47,7 +47,7 @@ class ScaledGraphic:
         self.mixture = mixture
         self.each_metabolite_scale = each_metabolite_scale
 
-    def writeAllScaledMatplotGraphics(self, full_path):
+    def write_all_scaled_mat_plot_graphics(self, full_path):
         for i in range(len(self.metabolite_list)):
             metab = self.metabolite_list[i]
             scaled_metab_vals = []
@@ -59,7 +59,7 @@ class ScaledGraphic:
             plt.savefig(os.path.join(full_path, metab.name), dpi=2400)
             plt.cla()
 
-    def writeFittedMatplotGraphic(self, full_path):
+    def write_fitted_mat_plot_graphic(self, full_path):
         fitted_values = [0] * len(self.mixture.ppms)
         for i in range(len(self.metabolite_list)):
             metab = self.metabolite_list[i]
@@ -94,7 +94,7 @@ def test_scaled_all():
     scales = [3, 4, 2]
 
     graphic = ScaledGraphic(metabolite_list, mixture, scales)
-    graphic.writeAllScaledMatplotGraphics("test_dir/")
+    graphic.write_all_scaled_mat_plot_graphics("test_dir/")
 
 
 def test_scaled_fitted():
@@ -112,7 +112,7 @@ def test_scaled_fitted():
     scales = [3, 4, 2]
 
     graphic = ScaledGraphic(metabolite_list, mixture, scales)
-    graphic.writeFittedMatplotGraphic("test_dir/")
+    graphic.write_fitted_mat_plot_graphic("test_dir/")
 
 # test_all()
 # test_fitted()

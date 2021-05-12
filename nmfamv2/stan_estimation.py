@@ -1,25 +1,25 @@
-import StanModelConstants
 import numpy as np
 # Upgrading pystan to 3.0 (https://github.com/stan-dev/pystan/blob/c1fda8a2545c322db8efb571be1923ef8cfec275/doc/upgrading.rst)
 import stan
 
-import RunLog as log
+from .stan_model_constants import (
+    STAN_MODEL_ADJUSTING, STAN_MODEL_BAD_ESTIMATES,
+    STAN_MODEL_OK_ESTIMATES, STAN_MODEL_BASIC
+)
 
-import sys
 
-
-def getStanModel(modelNameString):
+def get_stan_model(modelNameString):
     if modelNameString == "BASIC":
-        return StanModelConstants.STAN_MODEL_BASIC
+        return STAN_MODEL_BASIC
     elif modelNameString == "ADJUSTING":
-        return StanModelConstants.STAN_MODEL_ADJUSTING
+        return STAN_MODEL_ADJUSTING
     elif modelNameString == "BAD_ESTIMATES":
-        return StanModelConstants.STAN_MODEL_BAD_ESTIMATES
+        return STAN_MODEL_BAD_ESTIMATES
     elif modelNameString == "OK_ESTIMATES":
-        return StanModelConstants.STAN_MODEL_OK_ESTIMATES
+        return STAN_MODEL_OK_ESTIMATES
 
 
-def stanEstimation(mixture, metabolite_list, stanPreprocessParameters, stan_parameters, runLog):
+def stan_estimation(mixture, metabolite_list, stanPreprocessParameters, stan_parameters, runLog):
     global results
     last_estimates = None
     new_sigmas = None
@@ -30,7 +30,7 @@ def stanEstimation(mixture, metabolite_list, stanPreprocessParameters, stan_para
             stanPreprocessParameters["scales_mean"] = last_estimates
             stanPreprocessParameters["scales_sigma"] = new_sigmas
 
-        stan_model_string = getStanModel(params["modeltype"])
+        stan_model_string = get_stan_model(params["modeltype"])
         stan_model = stan.build(model_code=stan_model_string, verbose=False)
         print("about to run stan fit")
         stan_fit = stan_model.sampling(data=stanPreprocessParameters, iter=params["num_iterations"],

@@ -1,16 +1,7 @@
-import os
-import glob
-import numpy as np
-
-import csv
-
-import glob
-import os
-import pandas as pd
-from scipy import interpolate
-import json
-import math
 import sys
+
+import numpy as np
+from scipy import interpolate
 
 
 def generate_ppm_axis(size, lower_bound, upper_bound):
@@ -99,9 +90,6 @@ def trim_spectrum(ppm_list, value_list, lower_bound, upper_bound):
     return new_value_list
 
 
-
-
-
 def mixture_template_size_synchronization(template_names, template_ppms_list, template_values_list, mixture_values):
     OFFSET = 12.78661
     SWP = 16.0252988219442
@@ -131,7 +119,7 @@ def mixture_template_size_synchronization(template_names, template_ppms_list, te
     # Cycle through template names
     for t in range(len(template_names)):
         template_ppms_list[t], template_values_list[t] = extend_ppm(template_ppms_list[t], template_values_list[t], (
-        mixture_ppms[0], mixture_ppms[len(mixture_ppms) - 1]))
+            mixture_ppms[0], mixture_ppms[len(mixture_ppms) - 1]))
         # Resize metabolites
         template_ppms_list[t], template_values_list[t] = resizer(template_ppms_list[t], template_values_list[t],
                                                                  len(mixture_values), (template_ppms_list[t][0],
@@ -161,7 +149,7 @@ def mixture_template_size_synchronization(template_names, template_ppms_list, te
 # OFFSET:  12.78661
 # SWP:  16.0252988219442
 
-def resizePPMsAndValues(ppms, values, mixture_ppm_left_bound, mixture_ppm_right_bound, new_size_length):
+def resize_ppms_and_values(ppms, values, mixture_ppm_left_bound, mixture_ppm_right_bound, new_size_length):
     # Extend the ppms
     new_ppms, new_values = extend_ppm(ppms, values, (mixture_ppm_left_bound, mixture_ppm_right_bound))
     # Resize metabolites
@@ -181,25 +169,3 @@ def resizePPMsAndValues(ppms, values, mixture_ppm_left_bound, mixture_ppm_right_
     return new_ppms, new_values
 
 
-"""def test():
-    names = []
-    template_ppms_list = []
-    template_values_list = []
-
-    for file in glob.glob("nan_templates/*.csv"):
-        if file == "nan_templates/mixture.csv":
-            print("READ MIXTURE")
-            mixture_values = list(pd.read_csv(file)["values"])
-        else:
-            names.append(file[14:-4])
-            template_ppms_list.append(list(pd.read_csv(file)["ppm"]))
-            template_values_list.append(list(pd.read_csv(file)["values"]))
-
-    print(names)
-    #print(template_ppms_list)
-    #print(template_values_list)
-
-    template_ppms_list, template_values_list = mixture_template_size_synchronization(names, template_ppms_list, template_values_list, mixture_values)
-
-test()
-"""

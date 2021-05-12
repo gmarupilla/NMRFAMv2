@@ -1,24 +1,24 @@
 import time
 
-from MetadataParser import parse_metadata
+from .metadata_parser import parse_metadata
 
-from ReadMixture import readMixtureFromCSV
+from .read_mixture import read_mixture_from_csv
 # from ReadMixture import readMixtureFrom1r
 
-from ReadMetabolites import readMetabolitesFromCSV
-from Spectrum import Spectrum
+from .read_metabolites import read_metabolites_from_csv
+from .spectrum import Spectrum
 import sys
 
-from Metabolite import Metabolite
+from .metabolite import Metabolite
 
 
-def readMetadata():
+def read_metadata():
     parse_metadata("./SampleMetadata.txt")
 
 
 # Metabolite list will be an array of Metabolite Objects
-def readMetaboliteList():
-    names, metabolite_ppms, metabolite_values, metabolite_peak_ppms = readMetabolitesFromCSV()
+def read_metabolite_list():
+    names, metabolite_ppms, metabolite_values, metabolite_peak_ppms = read_metabolites_from_csv()
 
     if len(names) != len(metabolite_ppms):
         print("DATA READ ERROR: names were not same length as metabolite_ppms")
@@ -42,11 +42,11 @@ def readMetaboliteList():
 
 
 # Mixture will be a Spectrum object
-def readMixture(path):
+def read_mixture():
     # Get the data
     # This function must return the ppms and values of the mixture in list form
     # The function below should come from the ReadMixture file and must return ppms and values that pass the checks listed below
-    ppms, values = readMixtureFromCSV()
+    ppms, values = read_mixture_from_csv()
 
     # ppms, values = readMixtureFrom1r(path)
 

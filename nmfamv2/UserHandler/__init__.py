@@ -16,11 +16,11 @@ class UserHandler(object):
         self.pathToMixture = pathToMixture
 
     def addZip(self, zipfile_path):
-        if self.username == None:
+        if self.username is None:
             print("[userHandler.py][addZip] Error")
 
         else:
             if zipfile.is_zipfile(zipfile_path):
                 with zipfile.ZipFile(zipfile_path, 'r') as zipObj:
                     topDirName = zipObj.infolist()[0].filename
-                    self.pathToMizture
+                    var = self.pathToMixture

@@ -1,7 +1,7 @@
 import sys
 
 
-def listFromListString(listAsString, typeOfData):
+def list_from_list_string(listAsString, typeOfData):
     if not isinstance(listAsString, str):
         print("Error: listAsString is not of type string")
         sys.exit()
@@ -15,9 +15,11 @@ def listFromListString(listAsString, typeOfData):
     if typeOfData == float:
         return list(map(lambda x: float(x), newList))
 
+# TODO: Move the test
+
 
 def test():
-    dataFromString = listFromListString("[1.32,2.2,3.03,4.02,5.01]", float)
+    dataFromString = list_from_list_string("[1.32,2.2,3.03,4.02,5.01]", float)
     print(dataFromString)
     for item in dataFromString:
         if not isinstance(item, float):

@@ -1,21 +1,20 @@
-# Metabolite.py is a subclass of Spectrum.py
+# metabolite.py is a subclass of spectrum.py
 
-import sys
 import os
+import sys
+
 import pandas as pd
+from .resize_function import extend_ppm
+from .resize_function import resizer
+from .shift_functions import check_metabolite_shift
+from .shift_functions import get_shift_score
 
-from Spectrum import Spectrum
-
-from ResizeFunction import extend_ppm
-from ResizeFunction import resizer
-
-from ShiftFunctions import getShiftScore
-from ShiftFunctions import check_metabolite_shift
+from .spectrum import Spectrum
 
 
 class Metabolite(Spectrum):
     # TODO: are peaks passed as ppms or inds
-    def __init__(self, name, ppms, values, peak_ppms=None, peak_inds=None):
+    def __init__(self, name, ppms, values, peak_ppms=None, peak_inds=None, new_ppms=None, norm=None):
         super().__init__(ppms, values, peak_ppms, peak_inds)
         self.ppms = new_ppms.tolist()
         self.values = norm
@@ -29,7 +28,7 @@ class Metabolite(Spectrum):
 
     def resize(self, left_ppm_bound, right_ppm_bound, new_size):
         if self.riemannSum is not None:
-            print("ERROR: [Metabolite.py][resize] Cannot resize after calculating riemannSum")
+            print("ERROR: [metabolite.py][resize] Cannot resize after calculating riemannSum")
             sys.exit()
 
         new_ppms, new_values = extend_ppm(self.ppms, self.values, (left_ppm_bound, right_ppm_bound))
@@ -38,7 +37,7 @@ class Metabolite(Spectrum):
 
         # ppms, values = resizePPMsAndValues(self.ppms, self.values, left_ppm_bound, right_ppm_bound, new_size)
         self.values = new_values.tolist()
-        self.convertPeakPPMsToPeakInds()
+        # self.convertPeakPPMsToPeakInds()  # method needs to be added
 
         if len(self.ppms) != new_size or len(self.values) != new_size:
             print("Error: resize in Metabolite did not return proper data")
@@ -58,7 +57,7 @@ class Metabolite(Spectrum):
         if self.peak_ppms is None:
             print("ERROR in auto_shift in Metabolite ")
             sys.exit()
-        self.original_shift_score = getShiftScore(self.values, self.peak_inds, mixture_values)
+        self.original_shift_score = get_shift_score(self.values, self.peak_inds, mixture_values)
         self.shift, self.shift_score = check_metabolite_shift(self.values, self.peak_inds, mixture_values)
 
         self.shift_ppm_peaks(self.shift)
@@ -74,8 +73,8 @@ class Metabolite(Spectrum):
     def calc_riemann_sum(self):
         self.riemannSum = sum(self.values)
 
-    def getLogData(self):
-        logData = {
+    def get_log_data(self):
+        log_data = {
             "start_ppm": self.ppms[0],
             "end_ppm": self.ppms[len(self.ppms) - 1],
             "ppms_length": len(self.ppms),
@@ -89,7 +88,7 @@ class Metabolite(Spectrum):
             "original_shift_score": self.original_shift_score,
             "shift_score": self.shift_score
         }
-        return logData
+        return log_data
 
     def save(self, parent_directory):
         metab_directory = parent_directory + self.name

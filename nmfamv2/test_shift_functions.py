@@ -1,10 +1,4 @@
-from ShiftFunctions import shift_peaks_one
-from ShiftFunctions import shift_values_one
-from ShiftFunctions import getShiftScore
-from ShiftFunctions import check_metabolite_shift
-
-
-
+from .shift_functions import check_metabolite_shift, get_shift_score, shift_peaks_one, shift_values_one
 
 
 #######   SHIFT_PEAKS   #######
@@ -34,14 +28,14 @@ def test_zero_shift_score():
     peaks = [3, 7]
     vals = [0, 0, 0, 1, 0, 1, 2, 3, 2, 1, 0, 0, 0]
     mixture = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    assert (getShiftScore(vals, peaks, mixture) == 0)
+    assert (get_shift_score(vals, peaks, mixture) == 0)
 
 
 def test_shift_score():
     peaks = [3, 7]
     vals = [0, 0, 0, 1, 0, 1, 2, 3, 2, 1, 0, 0, 0]
     mixture = [0, 0, 0, 3, 0, 3, 7, 15, 7, 3, 0, 0, 0]
-    assert (getShiftScore(vals, peaks, mixture) == 48)
+    assert (get_shift_score(vals, peaks, mixture) == 48)
 
 
 #######   CHECK_SHIFTS   #######
@@ -75,9 +69,6 @@ def test_check_better_outside_range_right():
     mixture = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 15, 0, 0, 0, 0]
     shift_tuple = check_metabolite_shift(metabolite_array, peaks, mixture, shift_steps=3)
     assert (shift_tuple[0] == 3)
-
-
-
 
 # if __name__ == "__main__":
 #     test()

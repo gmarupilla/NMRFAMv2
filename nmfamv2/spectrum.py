@@ -1,6 +1,7 @@
 import sys
 from statistics import mean
 
+
 # from MethodErrors import shiftError
 
 
@@ -62,7 +63,7 @@ class Spectrum:
         self.shifted = False
         self.__check_class_data()
 
-    def convertPeakPPMsToPeakInds(self):
+    def convert_peak_ppms_to_peak_inds(self):
         self.__check_class_data()
 
         if self.peak_ppms is None:
@@ -178,7 +179,8 @@ class Spectrum:
             raise PeakPPMError()
         if self.peak_inds is not None and type(self.peak_inds) != list:
             raise PeakIndsError()
-        if len(self.ppms) == 0 or len(self.values) == 0 or ((self.peak_ppms is not None) and (len(self.peak_ppms) == 0)):
+        if len(self.ppms) == 0 or len(self.values) == 0 or (
+                (self.peak_ppms is not None) and (len(self.peak_ppms) == 0)):
             raise ZeroLengthError()
 
         if len(self.ppms) != len(self.values):
@@ -222,8 +224,6 @@ def test():
         Spectrum([1, 2, 3], [1, 2, 3], "a")
         print("Failed Exception Test #3")
         sys.exit()
-    except PeakError:
-        pass
     except:
         print("Failed Exception Test #3: Wrong error thrown")
 
@@ -263,7 +263,7 @@ def test():
         print("Failed Exception Test #7")
         sys.exit()
     except InvalidPeaksError as err:
-        if (err.offending_peak_index_value != -1):
+        if err.offending_peak_index_value != -1:
             print("Failed Exception Test #7")
             print("Expected failing peak index to be -1")
             print("Actual: " + err.offending_peak_index_value)
@@ -280,7 +280,7 @@ def test():
         print("Failed Exception Test #8")
         sys.exit()
     except InvalidPeaksError as err:
-        if (err.offending_peak_index_value != 5):
+        if err.offending_peak_index_value != 5:
             print("Failed Exception Test #8")
             print("Expected failing peak index to be 5")
             print("Actual: " + err.offending_peak_index_value)
@@ -294,7 +294,7 @@ def test():
         print("Failed Exception Test #9")
         sys.exit()
     except InvalidPeaksError as err:
-        if (err.offending_peak_index_value != 1.0):
+        if err.offending_peak_index_value != 1.0:
             print("Failed Exception Test #9")
             print("Expected failing peak index to be 1.0")
             print("Actual: " + err.offending_peak_index_value)
@@ -302,4 +302,3 @@ def test():
     except:
         print("Failed Exception Test #9: Wrong error thrown")
 
-# test()

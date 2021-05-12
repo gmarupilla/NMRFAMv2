@@ -4,7 +4,7 @@ import pandas as pd
 from scipy import interpolate
 
 
-def getMixtureDataFrom1rFiles(path_to_1r):
+def get_mixture_data_from_1r_files(path_to_1r):
     dic, mixture_values = ng.bruker.read_pdata(path_to_1r)
     # print(dic)
     # print(mixture_values)
@@ -41,10 +41,8 @@ def getMixtureDataFrom1rFiles(path_to_1r):
     return mixture_ppm_axis, mixture_values
 
 
-def readMixtureFromCSV(path_to_mixture_csv="sample_data/mixture.csv"
-                       ):
+def read_mixture_from_csv(path_to_mixture_csv="sample_data/mixture.csv"):
     mixture_df = pd.read_csv(path_to_mixture_csv)
-
     return list(mixture_df["ppms"]), list(mixture_df["values"])
 
 
@@ -54,11 +52,10 @@ def resizer(ppm, val, num, newppmtuple):
     f = interpolate.interp1d(ppm, val)
     new_ppm = np.linspace(newppmtuple[0], newppmtuple[1], num)
     new_vals = f(new_ppm)
-
     return new_vals
 
 
-def readMixtureFrom1r(path):
+def read_mixture_from_1r(path, final_mixture=None):
     dic, old_signal_height = ng.bruker.read_pdata(path)
     final_mixture.reverse()
     # Generate ppms
@@ -88,8 +85,10 @@ def readMixtureFrom1r(path):
     return ppm_axis, final_mixture
 
 
+# Move tests to common place
+
 def tests():
-    mixture_ppm_axis, mixture_values = getMixtureDataFrom1rFiles("1r_files/3")
+    mixture_ppm_axis, mixture_values = get_mixture_data_from_1r_files("1r_files/3")
     print(mixture_ppm_axis)
     print(mixture_values)
 

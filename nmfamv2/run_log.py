@@ -1,10 +1,7 @@
-import os
-import path
 import json
+import os
 
-from Graphics import MixtureGraphic
-from Graphics import MetaboliteGraphic
-from Graphics import ScaledGraphic
+from .graphics import MetaboliteGraphic, MixtureGraphic, ScaledGraphic
 
 
 class RunLog:
@@ -29,7 +26,7 @@ class RunLog:
 
         # Write Graphs
         mixtureGraphic = MixtureGraphic(mixture)
-        mixtureGraphic.writeMixture(self.mixture_dir, label)
+        mixtureGraphic.write_mixture(self.mixture_dir, label)
 
     def log_metab_list(self, metabolite_list, label):
         # Write Log Data
@@ -40,25 +37,28 @@ class RunLog:
 
         # Write Graphs
         metaboliteGraphic = MetaboliteGraphic(metabolite_list)
-        metaboliteGraphic.writeMetabolites(self.metab_dir, label)
+        metaboliteGraphic.write_metabolites(self.metab_dir, label)
 
     def log_fitted_all_metabs(self, metabolite_list, mixture, each_metabolite_scale, path=""):
         new_path = self.fitted_dir + path
         if not os.path.isdir(new_path):
             os.mkdir(new_path)
         scaledGraphic = ScaledGraphic(metabolite_list, mixture, each_metabolite_scale)
-        scaledGraphic.writeAllScaledMatplotGraphics(self.fitted_dir + path)
+        scaledGraphic.write_all_scaled_mat_plot_graphics(self.fitted_dir + path)
 
     def log_fitted_metabs(self, metabolite_list, mixture, each_metabolite_scale, path=""):
         new_path = self.fitted_dir + path
         if not os.path.isdir(new_path):
             os.mkdir(new_path)
         scaledGraphic = ScaledGraphic(metabolite_list, mixture, each_metabolite_scale)
-        scaledGraphic.writeFittedMatplotGraphic(self.fitted_dir + path)
+        scaledGraphic.write_fitted_mat_plot_graphic(self.fitted_dir + path)
 
 
-from Spectrum import Spectrum
-from Metabolite import Metabolite
+from .spectrum import Spectrum
+from .metabolite import Metabolite
+
+
+# TODO: Move tests
 
 
 def test_logMixture():

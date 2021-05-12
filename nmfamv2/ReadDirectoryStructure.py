@@ -2,7 +2,7 @@ import os
 import nameTranslator as nt
 import pandas as pd
 
-
+# TODO: nt?, directory?, directory or directory_path?
 def readDirectoryStructure(number_translated_name_list, directory_path):
     for bmse_dir in os.listdir(directory_path):
         # if the directory name contains "bmse"...
