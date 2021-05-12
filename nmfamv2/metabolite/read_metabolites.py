@@ -1,6 +1,6 @@
 import pandas as pd
 
-from .data_conversion import list_from_list_string
+from nmfamv2.data_process.data_conversion import list_from_list_string
 
 import xml.etree.ElementTree as ET
 import os

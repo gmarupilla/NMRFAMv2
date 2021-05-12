@@ -3,7 +3,7 @@
 import os
 import sys
 import matplotlib.pyplot as plt
-from .metabolite import Metabolite
+from nmfamv2.metabolite.metabolite import Metabolite
 from .spectrum import Spectrum
 
 
@@ -71,7 +71,7 @@ class ScaledGraphic:
         plt.cla()
 
 
-
+# TODO: Move to tests
 
 
 def test_mixture():

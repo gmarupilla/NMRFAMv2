@@ -1,5 +1,5 @@
-from .spectrum import Spectrum
-from .metabolite import Metabolite
+from nmfamv2.spectrum import Spectrum
+from nmfamv2.metabolite.metabolite import Metabolite
 
 import sys
 

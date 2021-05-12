@@ -1,7 +1,7 @@
 import json
 import os
 
-from .graphics import MetaboliteGraphic, MixtureGraphic, ScaledGraphic
+from nmfamv2.graphics import MetaboliteGraphic, MixtureGraphic, ScaledGraphic
 
 
 class RunLog:
@@ -54,8 +54,8 @@ class RunLog:
         scaledGraphic.write_fitted_mat_plot_graphic(self.fitted_dir + path)
 
 
-from .spectrum import Spectrum
-from .metabolite import Metabolite
+from nmfamv2.spectrum import Spectrum
+from nmfamv2.metabolite.metabolite import Metabolite
 
 
 # TODO: Move tests

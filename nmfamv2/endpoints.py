@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, render_template, request
 
-from metabolite_name_translator import translate_list_to_gizzmo_names
+from nmfamv2.metabolite.metabolite_name_translator import translate_list_to_gizzmo_names
 
 app = Flask(__name__)
 

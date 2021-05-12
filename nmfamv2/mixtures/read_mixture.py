@@ -88,7 +88,7 @@ def read_mixture_from_1r(path, final_mixture=None):
 # Move tests to common place
 
 def tests():
-    mixture_ppm_axis, mixture_values = get_mixture_data_from_1r_files("1r_files/3")
+    mixture_ppm_axis, mixture_values = get_mixture_data_from_1r_files("../1r_files/3")
     print(mixture_ppm_axis)
     print(mixture_values)
 

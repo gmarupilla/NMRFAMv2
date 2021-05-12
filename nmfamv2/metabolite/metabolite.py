@@ -4,12 +4,12 @@ import os
 import sys
 
 import pandas as pd
-from .resize_function import extend_ppm
-from .resize_function import resizer
-from .shift_functions import check_metabolite_shift
-from .shift_functions import get_shift_score
+from nmfamv2.resize_function import extend_ppm
+from nmfamv2.resize_function import resizer
+from nmfamv2.shift_functions import check_metabolite_shift
+from nmfamv2.shift_functions import get_shift_score
 
-from .spectrum import Spectrum
+from nmfamv2.spectrum import Spectrum
 
 
 class Metabolite(Spectrum):

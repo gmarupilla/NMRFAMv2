@@ -1,5 +1,5 @@
 from .metadata_parser import parse_metadata
-from .metadata import Metadata
+from nmfamv2.metadata import Metadata
 
 
 def read_metafile(metafile_path):

@@ -1,19 +1,17 @@
-import time
+from nmfamv2.metadata.metadata_parser import parse_metadata
 
-from .metadata_parser import parse_metadata
-
-from .read_mixture import read_mixture_from_csv
+from nmfamv2.mixtures.read_mixture import read_mixture_from_csv
 # from ReadMixture import readMixtureFrom1r
 
-from .read_metabolites import read_metabolites_from_csv
-from .spectrum import Spectrum
+from nmfamv2.metabolite.read_metabolites import read_metabolites_from_csv
+from nmfamv2.spectrum import Spectrum
 import sys
 
-from .metabolite import Metabolite
+from nmfamv2.metabolite.metabolite import Metabolite
 
 
 def read_metadata():
-    parse_metadata("./SampleMetadata.txt")
+    parse_metadata("../SampleMetadata.txt")
 
 
 # Metabolite list will be an array of Metabolite Objects

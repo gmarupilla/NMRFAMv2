@@ -3,7 +3,7 @@ from .read_mixture import read_mixture_from_csv
 
 import matplotlib.pyplot as plt
 
-mixture_ppm_axis, mixture_values = get_mixture_data_from_1r_files("1r_files/3/pdata/3")
+mixture_ppm_axis, mixture_values = get_mixture_data_from_1r_files("../1r_files/3/pdata/3")
 csv_ppms, csv_mix = read_mixture_from_csv()
 # print(mixture_values)
 # print(csv_mix)

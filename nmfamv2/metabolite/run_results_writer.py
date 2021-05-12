@@ -66,7 +66,7 @@ class RunResultsWriter:
 
 ############### TESTS ##############
 
-from .spectrum import Spectrum
+from nmfamv2.spectrum import Spectrum
 
 # TODO: Move tests
 
